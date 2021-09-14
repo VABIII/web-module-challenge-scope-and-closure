@@ -1,5 +1,7 @@
 // ⭐️ Example Challenge START ⭐️
 
+const { tsNonNullExpression } = require("@babel/types");
+
 /**Example Task : processFirstItem()
  * This example shows how you might go about solving the rest of the tasks
  * 
@@ -28,11 +30,20 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+  The variable counter1 references is inside of the function and the counter2 refers to variable outside of it
   
   2. Which of the two uses a closure? How can you tell?
+
+  counter2. The variable it uses is outside  the scope of function
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     
+     counter1 would be preferable if the count variable did not need to be referenced by anything other than the 
+     function it is nested in.
+     
+     counter2 would be preferable if other functions in your program would need the value it represents
 */
 
 // counter1 code
@@ -62,8 +73,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.floor(Math.random() * 3);
 }
 
 
@@ -81,19 +92,29 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
-}
+function finalScore(inning_cb, inning_num){
+  let total = [];
+  let home = 0;
+  let away = 0;
 
+  for (let i = 0; i < inning_num.length; i++){
+    home = home + inning_cb;
+    away = away + inning_cb;
+  }
+  return {
+    Home: home,
+    Away: away
+  }
+}
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning_cb) {
+  return {Home: inning_cb(),
+          Away: inning_cb()}   
 }
-
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -136,9 +157,29 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
-}
+function scoreboard(inning_cb,get_inning, inning_num) {
+    const final_arr = [];
+    let home_2 = 0;
+    let away_2 = 0;
+    
+    for (let i = 0; i < inning_num; i++) {
+      let current_inning = get_inning(inning_cb);
+      home_2 = home_2 + current_inning;
+      away_2 = away_2 + current_inning;
+      
+      if (i != inning_num) {
+        final_arr.push(`Inning ${i + 1}: Away ${away_2} - Home ${home_2}`);
+      }
+      else if (i === inning_num && home_2 === away_2){
+        final_arr.push(`This game will require extra innings: Away ${away_2} - Home ${home_2}`);
+      }
+      else if ( i === inning_num && home_2 != away_2){
+      final_arr.push(`Final Score: Away ${away_2} - Home ${home_2}`);    
+        }
+      }
+    return final_arr;
+    }
+    
 
 
 
