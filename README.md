@@ -103,6 +103,12 @@ See if you can complete one or more of the following challenges:
 1. Write a function that would allow you to do this using a closure. (This is another interview question we've seen before - when you're ready for answers, view an explanation [here](https://www.coderbyte.com/algorithm/3-common-javascript-closure-questions)).
 
 ```js
+function createBase(num_1){
+  return function(num_2){
+    return num_1 + num_2;
+  }
+}
+
 var addSix = createBase(6);
 addSix(10); // returns 16
 addSix(21); // returns 27
