@@ -60,13 +60,13 @@ Edit the `ReadMe` file with your answers to the questions below.
 
 1. In your own words, define closure (1-2 sentences).
 
-Closure is when a function reaches beyond it's scope to receives a value  
+Closure is when a function reaches beyond it's scope to receive a value  
 
 2. Study the following code, then answer the questions below.
 
 ```js
-function personalDice(name){
-  return function(){
+function personalDice(name){ 
+ return function(){
       // generate random number between 1 and 6
     const newRoll = Math.floor(Math.random() * 6);
     console.log(`${name} rolled a ${newRoll}`)
@@ -76,15 +76,22 @@ function personalDice(name){
 const dansRoll = personalDice("Dan");
 
 const zoesRoll = personalDice("Zoe");
-
-
 dansRoll();
 dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+When the console.log is invoked the "name" value is outside of function() and supplied by the personalDice() parameter
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+The first time dansRoll() is called the personalDice() func is invoked and the 'function()' function generates a random number and then the personalDice parameter and the random number generated are passed to the string literal and console logged. Both times dansRoll is  called, everything except the random number generated will
+remain the same. The number supplied to the string literal will be the only thing that could change.
+
 c. What is the lexical scope of `newRoll`? 
+
+The variable newRoll can only be accessed within the 'function()' function scope of the 'personalDice()' function.
 
 
 ### Task 3 - Stretch Goals
